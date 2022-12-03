@@ -5,17 +5,17 @@ def fac(n, memo = {}):
         memo[n] = n * fac(n - 1)
         return memo[n]
 
-_count = 0
+_chain_memo = {}
 def chain_facs(n, chain_memo = {}):
     _n = [int(k) for k in str(n)]
-    global _count
+    global _chain_memo
     sum = 0
     for k in _n:
         sum += fac(k)
     chain_memo[n] = sum
     if chain_memo[n] != list(chain_memo.keys())[0] and chain_memo[n] not in chain_memo:
         chain_memo[n] = chain_facs(sum)
-    if len(chain_memo) == 60:
-        _count += 1
+    _chain_memo = chain_memo
     return chain_memo[n]
-    
+print(chain_facs(169))
+print(_chain_memo)
